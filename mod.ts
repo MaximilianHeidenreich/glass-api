@@ -35,9 +35,7 @@ async function handleRequest(request) {
             );
     }*/
 
-    console.log(request.url);
     const payload = request.url.split("?")[1].substr(8);
-    
 
     if (!payload) {
         return new Response(null, {
@@ -47,41 +45,16 @@ async function handleRequest(request) {
     }
 
     const data = new TextDecoder('utf-8').decode(base64Decode(payload));
-    console.log("data:");
-    console.log(data);
-    console.log("----");
     
     console.log(JSON.parse(data));
+
+    // Create event
     
-    
-  
-
-  const contentType = request.headers.get("content-type");
-  const responseInit = {
-        status: 200,
-        statusText: "Success",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
-        },
-  };
-
-  // Handle JSON data.
-  if (contentType.includes("application/json")) {
-        const json = await request.json();
-
-        console.log(json);
-
-        // Validate request
-
-        // Cache request
-        
-        return new Response(JSON.stringify({ msg: "Success" }, null, 2), responseInit);
-  }
-
-  // Reaching here implies that we don't support the provided content-type
-  // of the request so we reflect that back to the client.
-  return new Response(null, {
-        status: 415,
-        statusText: "Unsupported Media Type",
-  });
+    return new Response(JSON.stringify({ msg: "Success" }, null, 2), {
+            status: 200,
+            statusText: "Success",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+    });
 }
