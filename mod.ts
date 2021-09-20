@@ -35,9 +35,9 @@ async function handleRequest(request) {
             );
     }*/
 
-    console.log(request.destination);
+    console.log(request.url);
   
-    const urlParams = new URLSearchParams(request.destination);
+    const urlParams = new URLSearchParams(request.url);
     const payload = urlParams.get("payload");
 
     if (!payload) {
