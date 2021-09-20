@@ -1,5 +1,5 @@
 async function handleRequest(request) {
-    if (request.method !== "POST") {
+    if (request.method !== "GET") {
         return new Response(null, {
         status: 405,
         statusText: "Method Not Allowed",
