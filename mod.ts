@@ -36,7 +36,7 @@ async function handleRequest(request) {
     }*/
 
     console.log(request.url);
-    const payload = request.url.split("?")[1].split("=")[1];
+    const payload = request.url.split("?")[1].substr(8);
     console.log(payload);
     
 
