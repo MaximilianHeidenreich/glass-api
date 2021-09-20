@@ -35,7 +35,7 @@ async function handleRequest(request) {
             );
     }*/
 
-    console.log();
+    console.log(request.destination);
   
     const urlParams = new URLSearchParams(request.destination);
     const payload = urlParams.get("payload");
