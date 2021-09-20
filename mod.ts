@@ -37,6 +37,8 @@ async function handleRequest(request) {
 
     console.log(request.url);
     const payload = request.url.split("?")[1].split("=")[1];
+    console.log(payload);
+    
 
     if (!payload) {
         return new Response(null, {
@@ -47,6 +49,9 @@ async function handleRequest(request) {
 
     const data = base64Decode(payload).toString();
     console.log("data:");
+    console.log(data);
+    console.log("----");
+    
     console.log(JSON.parse(data));
     
     
