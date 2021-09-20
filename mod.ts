@@ -16,7 +16,7 @@ async function handleRequest(request) {
   // We want the 'content-type' header to be present to be able to determine
   // the type of data sent by the client. So we respond to the client with
   // "Bad Request" status if the header is not available on the request.
-  if (!request.headers.has("content-type")) {
+  /*if (!request.headers.has("content-type")) {
         return new Response(
             JSON.stringify({ error: "please provide 'content-type' header" }),
             {
@@ -27,7 +27,7 @@ async function handleRequest(request) {
                 },
             },
         );
-  }
+  }*/
 
   console.log(request.url);
   console.log(request.destination);
