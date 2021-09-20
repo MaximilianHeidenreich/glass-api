@@ -29,6 +29,11 @@ async function handleRequest(request) {
         );
   }
 
+  console.log(request.url);
+  console.log(request.destination);
+  
+  
+
   const contentType = request.headers.get("content-type");
   const responseInit = {
         status: 200,
