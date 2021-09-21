@@ -1,8 +1,9 @@
- import {
+import {
     decode as base64Decode,
-  } from "https://deno.land/std@0.107.0/encoding/base64.ts";
- 
-  export { base64Decode };
+} from "https://deno.land/std@0.107.0/encoding/base64.ts"; 
+import {
+    insertEvent
+} from "./store.ts";
 
 // Every request to a Deno Deploy program is considered as a fetch event.
 // So let's register our listener that will respond with the result of
@@ -55,8 +56,8 @@ async function handleRequest(request) {
         clientID: data.clientID,
         payload: data.payload
     }
-    console.log(event);
-    
+    let res = await insertEvent(event);
+    console.log(res);
     
     return new Response(JSON.stringify({ msg: "Success" }, null, 2), {
         status: 200,
