@@ -1,18 +1,67 @@
+import { decode as base64Decode } from "https://deno.land/std@0.107.0/encoding/base64.ts";
+import { serve, json } from "https://deno.land/x/sift@0.3.5/mod.ts";
 import {
-    decode as base64Decode,
-} from "https://deno.land/std@0.107.0/encoding/base64.ts"; 
-import {
-    insertEvent
+    insertEvent,
+    getEvents
 } from "./store.ts";
 
-// Every request to a Deno Deploy program is considered as a fetch event.
-// So let's register our listener that will respond with the result of
-// our request handler on "fetch" events.
-addEventListener("fetch", (event) => {
-    event.respondWith(handleRequest(event.request));
+
+serve({
+  "/": () => new Response("Glass :)"),
+  "/api/v1/ping/wload": async (req: Request) => await handle_ping_wload(req),
+  "/api/v1/get/events": async (req: Request) => await handle_get_events(req),
+
+  // The route handler of 404 will be invoked when a route handler
+  // for the requested path is not found.
+  404: () => new Response("not found"),
 });
 
-async function handleRequest(request) {
+
+
+async function handle_ping_wload(req: Request): Promise<Response> {
+    const payload = req.url.split("?")[1].substr(8);
+
+    if (!payload) {
+        return new Response(null, {
+            status: 400,
+            statusText: "Missing payload",
+        });
+    }
+
+    // TODO: Add parser validation & error
+    const data = JSON.parse(new TextDecoder('utf-8').decode(base64Decode(payload)));
+
+    // Create event TODO: Create docs
+    let event = {
+        timestamp: Date.now(),
+        type: "WLOAD",           // WLOAD, VISALIVE
+        pageID: data.pageID,
+        clientID: data.clientID,
+        payload: data.payload
+    }
+    let success = await insertEvent(event);
+    console.log("Succ + event: " + JSON.stringify(event));
+    
+    return new Response(JSON.stringify({ msg: "Success" }, null, 2), {
+        status: 200,
+        statusText: "Success",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+        },
+    });
+}
+
+async function handle_get_events(req: Request): Promise<Response> {
+    let events = await getEvents();
+    console.log("Succ + GET: " + JSON.stringify(events));
+    
+    return json({
+        events: events
+    }, {status: 200, statusText: "Success"});
+}
+
+// @ts-ignore
+/*async function handleRequest(request) {
     if (request.method !== "GET") {
         return new Response(null, {
             status: 405,
@@ -34,7 +83,7 @@ async function handleRequest(request) {
                     },
                 },
             );
-    }*/
+    }****\
 
     const payload = request.url.split("?")[1].substr(8);
 
@@ -57,7 +106,7 @@ async function handleRequest(request) {
         payload: data.payload
     }
     let res = await insertEvent(event);
-    console.log(res);
+    console.log("Succ + event: " + JSON.stringify(event));
     
     return new Response(JSON.stringify({ msg: "Success" }, null, 2), {
         status: 200,
@@ -66,4 +115,4 @@ async function handleRequest(request) {
             "Content-Type": "application/json; charset=utf-8",
         },
     });
-}
+}*/
