@@ -14,8 +14,8 @@ addEventListener("fetch", (event) => {
 async function handleRequest(request) {
     if (request.method !== "GET") {
         return new Response(null, {
-        status: 405,
-        statusText: "Method Not Allowed",
+            status: 405,
+            statusText: "Method Not Allowed",
         });
     }
 
@@ -44,17 +44,25 @@ async function handleRequest(request) {
         });
     }
 
-    const data = new TextDecoder('utf-8').decode(base64Decode(payload));
-    
-    console.log(JSON.parse(data));
+    // TODO: Add parser validation & error
+    const data = JSON.parse(new TextDecoder('utf-8').decode(base64Decode(payload)));
 
-    // Create event
+    // Create event TODO: Create docs
+    let event = {
+        timestamp: Date.now(),
+        type: "WLOAD",           // WLOAD, VISALIVE
+        pageID: data.pageID,
+        clientID: data.clientID,
+        payload: data.payload
+    }
+    console.log(event);
+    
     
     return new Response(JSON.stringify({ msg: "Success" }, null, 2), {
-            status: 200,
-            statusText: "Success",
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
+        status: 200,
+        statusText: "Success",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+        },
     });
 }
