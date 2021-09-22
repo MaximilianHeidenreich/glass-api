@@ -52,12 +52,13 @@ async function handle_ping_wload(req: Request): Promise<Response> {
 }
 
 async function handle_get_events(req: Request): Promise<Response> {
-    const data = await req.json();
+    const urlParams = new URLSearchParams(req.url);
+    const pageID = urlParams.get("pageID") || "";
 
     let d = {
         "events": await getEvents()
     }
-    let events = q(d).events().pageID(data.pageID).get();
+    let events = q(d).events().pageID(pageID).get();
     
     return json({
         events: events
