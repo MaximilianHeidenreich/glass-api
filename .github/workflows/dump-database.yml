@@ -16,16 +16,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Install Deno
-        run: |
-          curl -fsSL https://deno.land/x/install/install.sh | sh
-          export DENO_INSTALL="/home/runner/.deno"
-          export PATH="$DENO_INSTALL/bin:$PATH"
-          deno install -A --unstable --import-map=https://deno.land/x/trex/import_map.json -n trex --no-check https://deno.land/x/trex/cli.ts
       - run: echo "🚚 Running dump script."
       - name: Run dump script
         run: |
-          export DENO_INSTALL="/home/runner/.deno"
-          export PATH="$DENO_INSTALL/bin:$PATH"
-          trex run dump
+          ./dump-linux-x86
       - run: echo "✅ This job's status is ${{ job.status }}."

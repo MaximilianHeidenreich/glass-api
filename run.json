@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "compile": "deno compile --unstable --allow-all --output dump ./dump.ts",
+        "compile": "deno --unstable compile --allow-all --lite --target x86_64-unknown-linux-gnu --output dump-linux-x86 dump.ts",
         "dump": "deno run --unstable --allow-all dump.ts --verbose"
     }
 }
