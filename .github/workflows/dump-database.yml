@@ -3,8 +3,9 @@ name: Dump Database
 #on: 
 #  [push]
 on:
+  workflow_dispatch:
   schedule:
-  - cron: 0 * * * *   # Every hour
+    - cron: '0 * * * *'   # Every hour
 
 jobs:
   runDumpScript:
