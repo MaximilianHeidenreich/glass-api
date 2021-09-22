@@ -56,8 +56,10 @@ async function handle_get_events(req: Request): Promise<Response> {
     const pageID = urlParams.get("pageID") || "";
 
     let d = {
-        "events": await getEvents()
+        events: await getEvents()
     }
+    console.log(d);
+    
     let events = q(d).events().pageID(pageID).get();
     
     return json({
