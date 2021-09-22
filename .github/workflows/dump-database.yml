@@ -27,5 +27,5 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-          trex run dump
+          /home/runner/.deno/bin/trex run dump
       - run: echo "🍏 This job's status is ${{ job.status }}."
