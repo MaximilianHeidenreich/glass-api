@@ -1,4 +1,4 @@
-import { Store } from "./types.ts";
+import { Store } from "./definitions.ts";
 
 async function tmpGetPantry() {
     const response = await fetch("https://getpantry.cloud/apiv1/pantry/af55b205-9209-4d98-b049-2b8ef8b1c0ba/basket/events", {
@@ -8,7 +8,7 @@ async function tmpGetPantry() {
             accept: "application/json",
         },
     });
-    return response.json();
+    return await response.json();
 }
 
 async function getEventsTMP() {

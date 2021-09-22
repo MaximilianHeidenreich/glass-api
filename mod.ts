@@ -55,6 +55,15 @@ async function handle_get_events(req: Request): Promise<Response> {
     const urlParams = new URLSearchParams(req.url);
     const pageID = urlParams.get("pageID") || "";
 
+    /*const rr = await fetch("https://getpantry.cloud/apiv1/pantry/af55b205-9209-4d98-b049-2b8ef8b1c0ba/basket/events", {
+        headers: {
+            // Servers use this header to decide on response body format.
+            // "application/json" implies that we accept the data in JSON format.
+            accept: "application/json",
+        },
+    });
+    let d = rr.json()*/
+
     let d = {
         events: await getEvents()
     }
