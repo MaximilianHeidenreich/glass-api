@@ -20,6 +20,8 @@ jobs:
       - name: Install Deno
         run: |
           curl -fsSL https://deno.land/x/install/install.sh | sh
+          export DENO_INSTALL="/home/runner/.deno"
+          export PATH="$DENO_INSTALL/bin:$PATH"
           deno install -A --unstable --import-map=https://deno.land/x/trex/import_map.json -n trex --no-check https://deno.land/x/trex/cli.ts
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
