@@ -4,6 +4,7 @@ import {
     insertEvent,
     getEvents
 } from "./store.ts";
+import { q } from "./query.ts";
 
 // TODO!: JSON ENCODE receiveed params
 
@@ -51,8 +52,12 @@ async function handle_ping_wload(req: Request): Promise<Response> {
 }
 
 async function handle_get_events(req: Request): Promise<Response> {
-    let events = await getEvents();
-    console.log("Succ + GET: " + JSON.stringify(events));
+    const data = await req.json();
+
+    let d = {
+        "events": await getEvents()
+    }
+    let events = q(d).events().pageID(data.pageID).get();
     
     return json({
         events: events

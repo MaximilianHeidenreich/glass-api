@@ -54,8 +54,8 @@ function getRawDataSet(): Store {
 }
 
 
-export const q = () => {
-    let ds = getRawDataSet();
+export const q = (dataSet?: Store) => {
+    let ds = dataSet ? dataSet : getRawDataSet();
 
     return {
 
@@ -93,10 +93,10 @@ m()
     .ct - contains
 */
 
-console.log(q);
+//console.log(q);
 // @ts-ignore
-console.log(q().events().clientID());
+//console.log(q().events().clientID());
 
 
 // @ts-ignore
-console.log(q().events().pageID("fg5a0d08550d9fdea58711015a74d1789c0fa9c9d3f92b1336988824b59a4813").get());
+//console.log(q().events().pageID("fg5a0d08550d9fdea58711015a74d1789c0fa9c9d3f92b1336988824b59a4813").get());
