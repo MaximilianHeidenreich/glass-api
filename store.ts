@@ -1,3 +1,5 @@
+import { Store } from "./types.ts";
+
 async function tmpGetPantry() {
     const response = await fetch("https://getpantry.cloud/apiv1/pantry/af55b205-9209-4d98-b049-2b8ef8b1c0ba/basket/events", {
         headers: {
@@ -12,6 +14,9 @@ async function tmpGetPantry() {
 async function getEventsTMP() {
     // @ts-ignore
     return await tmpGetPantry()["data"];
+}
+async function dumpStoreTMP(): Promise<Store> {
+    return { events: (await tmpGetPantry())["data"] };  // TODO: Hack due to tmp db
 }
 
 async function insertEventTMP(event: Object): Promise<string> {
@@ -42,5 +47,6 @@ async function insertEventTMP(event: Object): Promise<string> {
 
 export {
     insertEventTMP as insertEvent,
-    getEventsTMP as getEvents
+    getEventsTMP as getEvents,
+    dumpStoreTMP as dumpStore
 };

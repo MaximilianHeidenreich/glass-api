@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "compile": "deno compile --unstable --allow-all --output dump ./dump.ts",
+        "dump": "deno run -A dump.ts --verbose"
+    }
+}

@@ -5,14 +5,13 @@ import {
     getEvents
 } from "./store.ts";
 
+// TODO!: JSON ENCODE receiveed params
 
 serve({
   "/": () => new Response("Glass :)"),
   "/api/v1/ping/wload": async (req: Request) => await handle_ping_wload(req),
   "/api/v1/get/events": async (req: Request) => await handle_get_events(req),
 
-  // The route handler of 404 will be invoked when a route handler
-  // for the requested path is not found.
   404: () => new Response("not found"),
 });
 
