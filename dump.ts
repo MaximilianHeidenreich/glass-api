@@ -17,7 +17,7 @@ import {
     ensureDirSync, 
     existsSync
 } from "./deps.ts";
-import { Store, gEvent } from "./types.ts";
+import { Store, gEvent } from "./definitions.ts";
 import { dumpStore } from "./store.ts";
 
 let DUMP: Store | undefined;

@@ -2,7 +2,7 @@
  * About:
  *      Contains logic to query the data source from filesystem.
  */
-import { Store, gEvent, gEventType } from "./types.ts";
+import { Store, gEvent, gEventType } from "./definitions.ts";
 
 function getRawDataSet(): Store {
     return {
